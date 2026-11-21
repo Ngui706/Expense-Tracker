@@ -1,0 +1,97 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Comrade Pocket Tracker</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+  <div class="container">
+    <header>
+      <h1>Comrade Pocket</h1>
+      <p id="subtitle">Budget and track your expenses</p>
+    </header>
+
+    <!-- Auth View -->
+    <section id="auth-view" class="panel">
+      <div class="tabs">
+        <button type="button" id="tab-login" class="tab active">Login</button>
+        <button type="button" id="tab-register" class="tab">Create Account</button>
+      </div>
+
+      <form id="auth-form">
+        <input type="text" id="auth-userid" placeholder="Comrade ID (e.g., steve_k)" required />
+        <input type="text" id="auth-name" placeholder="Display Name (e.g., Steve)" class="hidden" />
+        <input type="password" id="auth-pin" placeholder="4+ digit PIN" minlength="4" required />
+        <p id="auth-error" class="error-text"></p>
+        <button type="submit" id="auth-submit">Sign In</button>
+      </form>
+    </section>
+
+    <!-- Tenant Dashboard View -->
+    <main id="app-view" class="hidden">
+      <div class="tenant-bar">
+        <span>Active: <strong id="active-user"></strong></span>
+        <button type="button" id="logout-btn" class="secondary-btn">Switch Account</button>
+      </div>
+
+      <section class="summary">
+        <div class="card income">
+          <span>Total In</span>
+          <h2 id="total-in">KES 0</h2>
+        </div>
+        <div class="card expense">
+          <span>Total Spent</span>
+          <h2 id="total-out">KES 0</h2>
+        </div>
+        <div class="card balance">
+          <span>Balance</span>
+          <h2 id="balance">KES 0</h2>
+        </div>
+      </section>
+
+      <form id="expense-form" class="panel">
+        <div class="row">
+          <select id="type" required>
+            <option value="Expense">Expense (-)</option>
+            <option value="Income">Income (+)</option>
+          </select>
+
+          <select id="category" required>
+            <option value="Food & Mess">Food & Mess</option>
+            <option value="Rent & Bills">Rent & Bills</option>
+            <option value="Bundles & Airtime">Bundles & Airtime</option>
+            <option value="Transport">Transport</option>
+            <option value="Academic & Printing">Academic & Printing</option>
+            <option value="HELB / Allowance">HELB / Allowance</option>
+            <option value="Hustle / Side Gig">Hustle / Side Gig</option>
+            <option value="Other">Other</option>
+          </select>
+        </div>
+
+        <input type="text" id="description" placeholder="e.g., Smokie pasua & chapo, Wi-Fi share" required />
+
+        <div class="row">
+          <input type="number" id="amount" placeholder="Amount (KES)" min="1" required />
+          <select id="paymentMethod">
+            <option value="M-Pesa">M-Pesa</option>
+            <option value="Cash">Cash</option>
+            <option value="Pochi/Till">Pochi / Till</option>
+          </select>
+        </div>
+
+        <button type="submit" id="submit-btn">Record Transaction</button>
+      </form>
+
+      <section class="history">
+        <h3>Your Recent Transactions</h3>
+        <div id="loader">Loading records...</div>
+        <ul id="transaction-list"></ul>
+      </section>
+    </main>
+  </div>
+
+  <script src="app.js"></script>
+</body>
+</html>
