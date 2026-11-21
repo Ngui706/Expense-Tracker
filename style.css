@@ -115,3 +115,132 @@ button:disabled { opacity: 0.6; cursor: not-allowed; }
 .tx-item.Income { border-left-color: var(--green); }
 .tx-meta { font-size: 0.75rem; color: var(--muted); margin-top: 2px; }
 .tx-amount { font-weight: 700; }
+
+/* Fluid typography & mobile-first refinements */
+html {
+  font-size: clamp(14px, 1.8vw, 16px);
+}
+
+body {
+  padding: clamp(12px, 3vw, 28px);
+  min-height: 100dvh;
+}
+
+.container {
+  width: 100%;
+  max-width: 960px; /* Expands cleanly on tablet/desktop */
+}
+
+/* Replace your existing body rule with this */
+body {
+  background: 
+    linear-gradient(rgba(15, 23, 42, 0.78), rgba(15, 23, 42, 0.88)),
+    url("Tracker.jpeg") center / cover no-repeat fixed;
+  color: var(--text);
+  display: flex;
+  justify-content: center;
+  padding: clamp(12px, 3vw, 28px);
+  min-height: 100dvh;
+}
+
+/* Optional: Frosted-glass effect so the campus photo subtly shows through cards */
+.panel,
+.card,
+.tenant-bar,
+.tx-item {
+  background: rgba(30, 41, 59, 0.82);
+  backdrop-filter: blur(8px);
+  -webkit-backdrop-filter: blur(8px);
+  border: 1px solid rgba(148, 163, 184, 0.15);
+}
+
+/* Fix mobile iOS/Android behavior where background-attachment: fixed can jump */
+@media (max-width: 768px) {
+  body {
+    background-attachment: scroll;
+  }
+}
+
+/* Tablet & Desktop: Two-column workspace (Form left, History right) */
+@media (min-width: 768px) {
+  #app-view {
+    display: grid;
+    grid-template-columns: 360px 1fr;
+    grid-template-areas:
+      "bar bar"
+      "summary summary"
+      "form history";
+    gap: 16px 20px;
+    align-items: start;
+  }
+
+  .tenant-bar { grid-area: bar; margin-bottom: 0; }
+  .summary    { grid-area: summary; margin-bottom: 0; }
+  #expense-form { grid-area: form; position: sticky; top: 20px; margin-bottom: 0; }
+  .history    { grid-area: history; }
+
+  #auth-view {
+    max-width: 420px;
+    margin: 24px auto;
+  }
+
+  .card {
+    padding: 16px;
+  }
+
+  .card h2 {
+    font-size: 1.25rem;
+  }
+}
+
+/* Small Phones (< 420px): Prevent cramped grids and iOS input zoom */
+@media (max-width: 420px) {
+  .summary {
+    grid-template-columns: 1fr;
+    gap: 8px;
+  }
+
+  .card {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    text-align: left;
+    padding: 10px 14px;
+  }
+
+  .card h2 {
+    margin-top: 0;
+    font-size: 1.05rem;
+  }
+
+  .row {
+    grid-template-columns: 1fr;
+  }
+
+  .tenant-bar {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 8px;
+  }
+
+  .secondary-btn {
+    width: 100%;
+    text-align: center;
+  }
+
+  .tx-item {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .tx-amount {
+    align-self: flex-end;
+  }
+
+  /* 16px prevents Safari/mobile browsers from auto-zooming on focus */
+  input, select, button {
+    font-size: 16px;
+    min-height: 44px; /* Comfortable touch target */
+  }
+}
